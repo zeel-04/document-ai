@@ -1,8 +1,8 @@
-from typing import TypeVar
+from typing import Any, Literal, TypeVar
 
-from pydantic import BaseModel, Field, SerializeAsAny
+from pydantic import BaseModel, Field
 
-Content = TypeVar("Content", bound=BaseModel)
+PydanticModel = TypeVar("PydanticModel", bound=BaseModel)
 
 
 class BoundingBox(BaseModel):
@@ -23,12 +23,19 @@ class Page(BaseModel):
     height: int | float
 
 
-class PDFDocument(BaseModel):
+class PDF(BaseModel):
     pages: list[Page] = Field(default_factory=list)
 
 
+# Generic Document schema
 class Document(BaseModel):
     document_type: str
     uri: str
-    content: Content | None = None
-    llm_input: list[str] | None = None
+    content: PydanticModel | None = None
+    llm_input: Any | None = None
+
+
+class PDFDocument(Document):
+    document_type: Literal["pdf"] = "pdf"
+    content: PDF | None = None
+    llm_input: list[str] | str | None = None

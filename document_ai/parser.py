@@ -3,18 +3,18 @@ from abc import abstractmethod
 import pdfplumber
 
 from .base import BaseParser, Document
-from .schemas import BoundingBox, Line, Page, PDFDocument
+from .schemas import PDF, BoundingBox, Line, Page
 from .utils import normalize_bounding_box
 
 
 class PDFParser(BaseParser):
     @abstractmethod
-    def parse(self, document: Document) -> PDFDocument:
+    def parse(self, document: Document) -> PDF:
         pass
 
 
 class DigitalPDFParser(PDFParser):
-    def parse(self, document: Document) -> PDFDocument:
+    def parse(self, document: Document) -> PDF:
         pages = []
         with pdfplumber.open(document.uri) as pdf:
             for page in pdf.pages:
@@ -32,4 +32,4 @@ class DigitalPDFParser(PDFParser):
                     )
                     lines.append(Line(text=line["text"], bounding_box=bbox))
                 pages.append(Page(lines=lines, width=page.width, height=page.height))
-        return PDFDocument(pages=pages)
+        return PDF(pages=pages)

@@ -1,32 +1,35 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from pydantic import BaseModel
-
-from .schemas import Document
+from .schemas import Document, PydanticModel
 
 
 class BaseParser(ABC):
     @abstractmethod
-    def parse(self, document: Document) -> BaseModel:
+    def parse(self, document: Document) -> PydanticModel:
         pass
 
 
 class BaseFormatter(ABC):
     @abstractmethod
-    def format_for_llm(self, content: BaseModel) -> list[str]:
+    def format_for_llm(
+        self, content: PydanticModel, formatter_config: dict
+    ) -> list[str] | str:
         pass
 
 
 class DocumentProcessor:
-    def __init__(self, parser: BaseParser, formatter: BaseFormatter):
+    def __init__(
+        self, parser: BaseParser, formatter: BaseFormatter, document: Document
+    ):
         self.parser = parser
         self.formatter = formatter
+        self.document = document
+        self.document.content = self.parser.parse(self.document)
 
-    def process(self, document: Document) -> Document:
-        content = self.parser.parse(document)
-        document.content = content  # type: ignore
-        llm_input = self.formatter.format_for_llm(content)
-        document.llm_input = llm_input
-        print(document.content)
-        return document
+    def process(self, formatter_config: dict) -> Document:
+        self.document.llm_input = self.formatter.format_for_llm(
+            self.document.content,  # type: ignore
+            formatter_config,  # type: ignore
+        )
+        return self.document
