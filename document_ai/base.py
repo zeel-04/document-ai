@@ -25,9 +25,9 @@ class DocumentProcessor:
         self.parser = parser
         self.formatter = formatter
         self.document = document
-        self.document.content = self.parser.parse(self.document)
 
     def process(self, formatter_config: dict) -> Document:
+        self.document.content = self.parser.parse(self.document)
         self.document.llm_input = self.formatter.format_for_llm(
             self.document.content,  # type: ignore
             formatter_config,  # type: ignore

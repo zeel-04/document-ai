@@ -15,3 +15,7 @@ cd Document-AI
 uv venv
 uv sync 
 ```
+
+### Digital PDF
+
+Parse -> Format -> ...
