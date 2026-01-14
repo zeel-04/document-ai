@@ -62,4 +62,4 @@ class PDF(BaseModel):
 class PDFDocument(Document):
     document_type: Literal["pdf"] = "pdf"
     content: PDF | None = None
-    llm_input: list[str] | None = None
+    llm_input: str | None = None

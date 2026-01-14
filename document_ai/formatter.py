@@ -15,9 +15,7 @@ class PDFFormatter(BaseFormatter):
             paginated.append(f"<page number={page_number}>\n{lines_text}</page>")
         return paginated
 
-    def _format_without_line_numbers(
-        self, content: PydanticModel
-    ) -> list[str]:
+    def _format_without_line_numbers(self, content: PydanticModel) -> list[str]:
         paginated = []
         if not content.pages:  # type: ignore
             raise ValueError("PDFFormatter: format_for_llm: Document pages are not set")
@@ -29,9 +27,9 @@ class PDFFormatter(BaseFormatter):
             paginated.append(f"<page number={page_number}>\n{lines_text}</page>")
         return paginated
 
-    def format_document_for_llm(self, document: Document, mode: Mode) -> list[str]:
+    def format_document_for_llm(self, document: Document, mode: Mode) -> str:
         content = document.content
         if mode.include_line_numbers:
-            return self._format_with_line_numbers(content)  # type: ignore
+            return "\n\n".join(self._format_with_line_numbers(content))  # type: ignore
         else:
-            return self._format_without_line_numbers(content)  # type: ignore
+            return "\n\n".join(self._format_without_line_numbers(content))  # type: ignore
