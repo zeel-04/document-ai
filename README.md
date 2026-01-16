@@ -111,7 +111,3 @@ cd document-ai
 uv venv
 uv sync 
 ```
-
-## License
-
-MIT
