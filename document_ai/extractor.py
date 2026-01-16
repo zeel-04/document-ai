@@ -5,7 +5,7 @@ from typing_extensions import TypedDict
 
 from .base import BaseExtractor
 from .llm import BaseLLM
-from .schemas import Document, Mode, PydanticModel
+from .schemas import Document, PydanticModel
 from .types import CitationType, CitationWithBboxesType
 from .utils import add_appropriate_citation_type, enrich_citations_with_bboxes
 
@@ -37,7 +37,7 @@ Document:
         model: str,
         reasoning: Any,
         response_format: PydanticModel,
-        mode: Mode,
+        include_line_numbers: bool,
         llm_input: str,
         system_prompt: str | None = None,
         user_prompt: str | None = None,
@@ -51,13 +51,11 @@ Document:
             },
         ]
         # Modify the response format to add mode based citations
-        if mode.include_line_numbers:
-            response_format = add_appropriate_citation_type(
-                response_format, CitationType
-            )
+        # if include_line_numbers:
+        #     response_format = add_appropriate_citation_type(
+        #         response_format, CitationType
+        #     )
 
-        # else:
-        #     response_format = set_page_citations(response_format, "Citations")
         response = self.llm.generate_structured_output(
             model=model,
             messages=messages,  # type:ignore[arg-type]
@@ -67,7 +65,7 @@ Document:
         )
 
         # enrich the response with bboxes
-        if mode.include_line_numbers:
+        if include_line_numbers:
             response_with_bboxes = enrich_citations_with_bboxes(
                 response,
                 document.content,  # type: ignore

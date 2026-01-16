@@ -56,7 +56,6 @@ from dotenv import load_dotenv
 from document_ai.processer import DocumentProcessor
 from document_ai.llm import OpenAILLM
 from pydantic import BaseModel
-from typing import Any
 
 # Load environment variables
 load_dotenv()
@@ -72,12 +71,12 @@ processor = DocumentProcessor.from_pdf(
 
 # Define your data model with citations
 # If you want to include citations for any field, 
-# you can do so by adding the suffix `_citation` to the field name.
+# you can do so by adding the suffix `_citation` to the field name and using the `processor.citation_type` as the type.
 class EndingBalance(BaseModel):
     ending_balance: float
-    ending_balance_citation: Any
-    starting_balance: float
-    starting_balance_citation: Any
+    ending_balance_citation: processor.citation_type
+    start_balance: float
+    start_balance_citation: processor.citation_type
 
 # Extract structured data
 response = processor.extract(
@@ -106,8 +105,8 @@ print(data)
             "bottom": 0.6221969596969696
         }]
     }],
-    "starting_balance": 610.52,
-    "starting_balance_citation": [{
+    "start_balance": 610.52,
+    "start_balance_citation": [{
         "page": 0,
         "lines": [13],
         "bboxes": [{

@@ -9,7 +9,8 @@ from document_ai.extractor import PDFExtractor
 from document_ai.formatter import PDFFormatter
 from document_ai.llm import BaseLLM
 from document_ai.parser import DigitalPDFParser
-from document_ai.schemas import Document, Mode, PDFDocument, PydanticModel
+from document_ai.schemas import Document, PDFDocument, PydanticModel
+from document_ai.types import CitationType
 
 
 class DocumentProcessor:
@@ -19,17 +20,18 @@ class DocumentProcessor:
         formatter: BaseFormatter,
         extractor: BaseExtractor,
         document: Document,
-        mode: Mode = Mode(),
+        include_line_numbers: bool = True,
     ):
         self.parser = parser
         self.formatter = formatter
         self.extractor = extractor
         self.document = document
-        self.mode = mode
+        self.include_line_numbers = include_line_numbers
+        self.citation_type = CitationType if include_line_numbers else Any
 
     @classmethod
     def from_pdf(
-        cls, uri: str, llm: BaseLLM, mode: Mode | None = Mode(), **kwargs
+        cls, uri: str, llm: BaseLLM, include_line_numbers: bool = True, **kwargs
     ) -> "DocumentProcessor":
         """Create processor for PDF documents"""
         return cls(
@@ -37,7 +39,7 @@ class DocumentProcessor:
             formatter=PDFFormatter(),
             extractor=PDFExtractor(llm),
             document=PDFDocument(uri=uri),
-            mode=mode,  # type: ignore
+            include_line_numbers=include_line_numbers,
             **kwargs,
         )
 
@@ -50,7 +52,7 @@ class DocumentProcessor:
             raise ValueError("Please parse the document first")
         self.document.llm_input = self.formatter.format_document_for_llm(
             self.document,
-            self.mode,
+            self.include_line_numbers,
         )
         return self.document.llm_input
 
@@ -74,9 +76,9 @@ class DocumentProcessor:
             model=model,
             reasoning=reasoning,
             response_format=response_format,
+            include_line_numbers=self.include_line_numbers,
+            llm_input=self.document.llm_input,  # type: ignore[reportUnknownReturnType]
             system_prompt=system_prompt,
             user_prompt=user_prompt,
-            mode=self.mode,
-            llm_input=self.document.llm_input,  # type: ignore[reportUnknownReturnType]
             openai_text=openai_text,
         )

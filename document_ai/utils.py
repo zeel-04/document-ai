@@ -157,7 +157,7 @@ def add_appropriate_citation_type(
             if isinstance(inner_type, type) and issubclass(inner_type, BaseModel):
                 new_inner_type = add_appropriate_citation_type(inner_type, CitationType)
                 new_fields[field_name] = (
-                    list[new_inner_type],  # type: ignore
+                    list[new_inner_type], 
                     Field(default_factory=list, description=original_description),
                 )
             else:

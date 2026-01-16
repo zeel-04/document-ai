@@ -1,5 +1,5 @@
 from .base import BaseFormatter
-from .schemas import Document, Mode, PydanticModel
+from .schemas import Document, PydanticModel
 
 
 class PDFFormatter(BaseFormatter):
@@ -27,9 +27,9 @@ class PDFFormatter(BaseFormatter):
             paginated.append(f"<page number={page_number}>\n{lines_text}</page>")
         return paginated
 
-    def format_document_for_llm(self, document: Document, mode: Mode) -> str:
+    def format_document_for_llm(self, document: Document, include_line_numbers: bool) -> str:
         content = document.content
-        if mode.include_line_numbers:
+        if include_line_numbers:
             return "\n\n".join(self._format_with_line_numbers(content))  # type: ignore
         else:
             return "\n\n".join(self._format_without_line_numbers(content))  # type: ignore
