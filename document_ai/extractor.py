@@ -10,7 +10,7 @@ from .types import CitationType, CitationWithBboxesType
 from .utils import add_appropriate_citation_type, enrich_citations_with_bboxes
 
 
-class PDFExtractor(BaseExtractor):
+class DigitalPDFExtractor(BaseExtractor):
     def __init__(
         self,
         llm: BaseLLM,

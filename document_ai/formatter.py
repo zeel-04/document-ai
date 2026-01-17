@@ -2,7 +2,7 @@ from .base import BaseFormatter
 from .schemas import Document, PydanticModel
 
 
-class PDFFormatter(BaseFormatter):
+class DigitalPDFFormatter(BaseFormatter):
     def _format_with_line_numbers(self, content: PydanticModel) -> list[str]:
         paginated = []
         if not content.pages:  # type: ignore

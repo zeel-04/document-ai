@@ -5,8 +5,8 @@ from document_ai.base import (
     BaseFormatter,
     BaseParser,
 )
-from document_ai.extractor import PDFExtractor
-from document_ai.formatter import PDFFormatter
+from document_ai.extractor import DigitalPDFExtractor
+from document_ai.formatter import DigitalPDFFormatter
 from document_ai.llm import BaseLLM
 from document_ai.parser import DigitalPDFParser
 from document_ai.schemas import Document, PDFDocument, PydanticModel
@@ -30,14 +30,14 @@ class DocumentProcessor:
         self.citation_type = CitationType if include_line_numbers else Any
 
     @classmethod
-    def from_pdf(
+    def from_digital_pdf(
         cls, uri: str, llm: BaseLLM, include_line_numbers: bool = True, **kwargs
     ) -> "DocumentProcessor":
-        """Create processor for PDF documents"""
+        """Create processor for Digital PDF documents"""
         return cls(
             parser=DigitalPDFParser(),
-            formatter=PDFFormatter(),
-            extractor=PDFExtractor(llm),
+            formatter=DigitalPDFFormatter(),
+            extractor=DigitalPDFExtractor(llm),
             document=PDFDocument(uri=uri),
             include_line_numbers=include_line_numbers,
             **kwargs,
