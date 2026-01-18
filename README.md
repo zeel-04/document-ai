@@ -68,30 +68,46 @@ load_dotenv()
 llm = OpenAILLM()
 
 # Create a processor from a PDF file
-processor = DocumentProcessor.from_pdf(
+processor = DocumentProcessor.from_digital_pdf(
     uri="path/to/your/document.pdf",
     llm=llm,
 )
 
 # Define your data model with citations
 # If you want to include citations for any field, 
-# you can do so by adding the suffix `_citation` to the field name and using the `processor.citation_type` as the type.
-class EndingBalance(BaseModel):
-    ending_balance: float
-    ending_balance_citation: processor.citation_type
-    start_balance: float
-    start_balance_citation: processor.citation_type
+# Use the `processor.citation_type` as the type.
+class MyData(BaseModel):
+    my_data: str
+    my_data_citation: processor.citation_type
 
 # Extract structured data
 response = processor.extract(
     model="gpt-5-mini",
     reasoning={"effort": "low"},
-    response_format=EndingBalance,
+    response_format=MyData,
 )
 
 # Get the extracted data
 data = response.model_dump()
 print(data)
+```
+
+### Sample Output
+
+```json
+{
+    "my_data": "my data",
+    "my_data_citation": [{
+        "page": 0,
+        "lines": [10],
+        "bboxes": [{
+            "x0": 0.058823529411764705,
+            "top": 0.6095707475757575,
+            "x1": 0.5635455037254902,
+            "bottom": 0.6221969596969696
+        }]
+    }]
+}
 ```
 
 ## Documentation
