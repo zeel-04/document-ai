@@ -412,26 +412,26 @@ wheels = [
 
 [[package]]
 name = "doc-intelligence"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "google-genai" },
     { name = "langchain" },
     { name = "loguru" },
-    { name = "mkdocs" },
-    { name = "mkdocs-material" },
     { name = "openai" },
     { name = "pdfplumber" },
-    { name = "pre-commit" },
     { name = "pymupdf" },
-    { name = "pytest" },
     { name = "python-dotenv" },
 ]
 
 [package.dev-dependencies]
 dev = [
     { name = "ipykernel" },
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+    { name = "pre-commit" },
     { name = "pyrefly" },
+    { name = "pytest" },
     { name = "ruff" },
 ]
 
@@ -440,20 +440,20 @@ requires-dist = [
     { name = "google-genai", specifier = ">=1.57.0" },
     { name = "langchain", specifier = ">=1.2.9" },
     { name = "loguru", specifier = ">=0.7.3" },
-    { name = "mkdocs", specifier = ">=1.6.1" },
-    { name = "mkdocs-material", specifier = ">=9.7.1" },
     { name = "openai", specifier = ">=2.15.0" },
     { name = "pdfplumber", specifier = ">=0.11.9" },
-    { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "pymupdf", specifier = ">=1.26.7" },
-    { name = "pytest", specifier = ">=9.0.2" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "ipykernel", specifier = ">=7.1.0" },
+    { name = "mkdocs", specifier = ">=1.6.1" },
+    { name = "mkdocs-material", specifier = ">=9.7.1" },
+    { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "pyrefly", specifier = ">=0.48.2" },
+    { name = "pytest", specifier = ">=9.0.2" },
     { name = "ruff", specifier = ">=0.14.13" },
 ]
 
@@ -462,7 +462,7 @@ name = "exceptiongroup"
 version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/50/79/66800aadf48771f6b62f7eb014e352e5d06856655206165d775e675a02c9/exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219", size = 30371 }
 wheels = [

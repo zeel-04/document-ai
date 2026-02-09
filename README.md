@@ -1,6 +1,6 @@
 # Document AI
 
-**Documentation:** [https://zeel-04.github.io/document-ai/](https://zeel-04.github.io/document-ai/)
+**Documentation:** [https://zeel-04.github.io/doc-intelligence/](https://zeel-04.github.io/doc-intelligence/)
 
 A library for parsing, formatting, and processing documents that can be used to build AI-powered document processing pipelines with structured data extraction and citation support.
 
@@ -19,30 +19,16 @@ A library for parsing, formatting, and processing documents that can be used to 
 - Python >= 3.10
 - OpenAI API key
 
-### Install uv
-
-First, install [uv](https://docs.astral.sh/uv/) if you haven't already:
+### Install with uv
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+uv pip install doc-intelligence
 ```
 
-### Install from Source
-
-Clone the repository and install the package:
+Or with pip:
 
 ```bash
-git clone https://github.com/zeel-04/document-ai.git
-cd document-ai
-uv sync
-```
-
-### Install from Git (Alternative)
-
-You can also install directly from the git repository:
-
-```bash
-uv pip install git+https://github.com/zeel-04/document-ai.git
+pip install doc-intelligence
 ```
 
 ## Quick Start
@@ -57,8 +43,8 @@ Here's a simple example to extract structured data from a PDF:
 
 ```python
 from dotenv import load_dotenv
-from document_ai.processer import DocumentProcessor
-from document_ai.llm import OpenAILLM
+from doc_intelligence.processer import DocumentProcessor
+from doc_intelligence.llm import OpenAILLM
 from pydantic import BaseModel
 
 # Load environment variables
@@ -116,7 +102,7 @@ The `extract` method returns a tuple containing the extracted data and citation 
 
 ## Documentation
 
-For more detailed documentation, see the [docs](./docs) directory or visit the [documentation site](https://zeel-04.github.io/document-ai/).
+For more detailed documentation, see the [docs](./docs) directory or visit the [documentation site](https://zeel-04.github.io/doc-intelligence/).
 
 ## Development Setup
 
@@ -126,8 +112,8 @@ Prerequisites:
 - uv
 
 ```bash
-git clone https://github.com/zeel-04/document-ai.git
-cd document-ai
+git clone https://github.com/zeel-04/doc-intelligence.git
+cd doc_intelligence
 uv venv
 uv sync 
 ```

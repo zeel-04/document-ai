@@ -9,33 +9,16 @@ This guide will help you get started with Document AI.
 - Python >= 3.10
 - OpenAI API key
 
-### Install uv
-
-First, install [uv](https://docs.astral.sh/uv/) if you haven't already:
+### Install with uv
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+uv pip install doc-intelligence
 ```
 
-### Install from Source
-
-Clone the repository and install the package:
+Or with pip:
 
 ```bash
-# Clone the repository
-git clone https://github.com/zeel-04/document-ai.git
-cd document-ai
-
-# Install the package with uv
-uv sync
-```
-
-### Install from Git (Alternative)
-
-You can also install directly from the git repository:
-
-```bash
-uv pip install git+https://github.com/zeel-04/document-ai.git
+pip install doc-intelligence
 ```
 
 ## Environment Setup
@@ -53,8 +36,8 @@ Here's a simple example to extract structured data from a PDF document:
 
 ```python
 from dotenv import load_dotenv
-from document_ai.processer import DocumentProcessor
-from document_ai.llm import OpenAILLM
+from doc_intelligence.processer import DocumentProcessor
+from doc_intelligence.llm import OpenAILLM
 from pydantic import BaseModel
 
 # Load environment variables

@@ -7,7 +7,7 @@ from typing import Optional
 import pytest
 from pydantic import BaseModel, Field
 
-from document_ai.pydantic_to_json_instance_schema import (
+from doc_intelligence.pydantic_to_json_instance_schema import (
     get_nested_model_type,
     get_type_string,
     is_list_type,

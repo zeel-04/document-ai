@@ -1,5 +1,5 @@
 def main():
-    print("Hello from document-ai!")
+    print("Hello from doc_intelligence!")
 
 
 if __name__ == "__main__":
